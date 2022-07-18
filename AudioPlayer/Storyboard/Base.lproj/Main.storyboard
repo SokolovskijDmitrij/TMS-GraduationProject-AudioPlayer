@@ -22,7 +22,7 @@
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="UDJ-cd-SqH">
                                         <rect key="frame" x="0.0" y="0.0" width="414" height="320"/>
                                         <subviews>
-                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="z3e-Bf-d3c">
+                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="pic" translatesAutoresizingMaskIntoConstraints="NO" id="z3e-Bf-d3c">
                                                 <rect key="frame" x="20" y="20" width="374" height="300"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="300" id="GO9-Sb-Fuj"/>
@@ -40,16 +40,19 @@
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="SMz-sw-46n">
                                         <rect key="frame" x="0.0" y="320" width="414" height="60"/>
                                         <subviews>
-                                            <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="fXE-qy-tJz" userLabel="Duration Slider">
+                                            <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="CLw-WC-VuW">
                                                 <rect key="frame" x="18" y="20" width="378" height="21"/>
+                                                <connections>
+                                                    <action selector="durationSliderAction:" destination="BYZ-38-t0r" eventType="valueChanged" id="mxC-wa-vn2"/>
+                                                </connections>
                                             </slider>
                                         </subviews>
                                         <constraints>
-                                            <constraint firstAttribute="trailing" secondItem="fXE-qy-tJz" secondAttribute="trailing" constant="20" id="4y1-GW-LmR"/>
-                                            <constraint firstItem="fXE-qy-tJz" firstAttribute="top" secondItem="SMz-sw-46n" secondAttribute="top" constant="20" id="9kD-rz-aHu"/>
+                                            <constraint firstAttribute="trailing" secondItem="CLw-WC-VuW" secondAttribute="trailing" constant="20" id="MWx-LW-shM"/>
                                             <constraint firstAttribute="height" constant="60" id="Tn8-Tt-yH0"/>
-                                            <constraint firstAttribute="bottom" secondItem="fXE-qy-tJz" secondAttribute="bottom" constant="20" id="oZP-RS-yke"/>
-                                            <constraint firstItem="fXE-qy-tJz" firstAttribute="leading" secondItem="SMz-sw-46n" secondAttribute="leading" constant="20" id="xs5-sL-yge"/>
+                                            <constraint firstAttribute="bottom" secondItem="CLw-WC-VuW" secondAttribute="bottom" constant="20" id="adB-t3-rJd"/>
+                                            <constraint firstItem="CLw-WC-VuW" firstAttribute="top" secondItem="SMz-sw-46n" secondAttribute="top" constant="20" id="hSy-RG-lMU"/>
+                                            <constraint firstItem="CLw-WC-VuW" firstAttribute="leading" secondItem="SMz-sw-46n" secondAttribute="leading" constant="20" id="oDo-kg-Jvp"/>
                                         </constraints>
                                     </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="27e-dS-eBQ">
@@ -172,18 +175,12 @@
                                                                     <action selector="didTapPlayPauseButton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="uZH-pi-C6B"/>
                                                                 </connections>
                                                             </button>
-                                                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="medium" translatesAutoresizingMaskIntoConstraints="NO" id="VMj-81-XlH">
-                                                                <rect key="frame" x="43.5" y="50" width="20" height="20"/>
-                                                            </activityIndicatorView>
                                                         </subviews>
                                                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                         <constraints>
-                                                            <constraint firstItem="VMj-81-XlH" firstAttribute="centerY" secondItem="dir-bO-kE2" secondAttribute="centerY" id="31x-kz-Q4F"/>
                                                             <constraint firstAttribute="bottom" secondItem="AXK-Bk-2A9" secondAttribute="bottom" constant="20" id="86m-nI-EuA"/>
                                                             <constraint firstAttribute="trailing" secondItem="AXK-Bk-2A9" secondAttribute="trailing" constant="20" id="VQd-bL-3QH"/>
                                                             <constraint firstItem="AXK-Bk-2A9" firstAttribute="leading" secondItem="dir-bO-kE2" secondAttribute="leading" constant="20" id="cas-3f-2um"/>
-                                                            <constraint firstItem="VMj-81-XlH" firstAttribute="centerX" secondItem="dir-bO-kE2" secondAttribute="centerX" id="cdP-GI-7pV"/>
-                                                            <constraint firstAttribute="height" constant="120" id="gah-iZ-q1S"/>
                                                             <constraint firstItem="AXK-Bk-2A9" firstAttribute="top" secondItem="dir-bO-kE2" secondAttribute="top" constant="20" id="hOL-yp-vvW"/>
                                                         </constraints>
                                                     </view>
@@ -231,6 +228,9 @@
                                         <subviews>
                                             <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" minimumValueImage="volume_min_black" maximumValueImage="volume_max_black" translatesAutoresizingMaskIntoConstraints="NO" id="CJh-Ds-8Nu">
                                                 <rect key="frame" x="18" y="20" width="378" height="61"/>
+                                                <connections>
+                                                    <action selector="volumeSliderAction:" destination="BYZ-38-t0r" eventType="valueChanged" id="hxk-Xf-eqo"/>
+                                                </connections>
                                             </slider>
                                         </subviews>
                                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -264,14 +264,14 @@
                         </constraints>
                     </view>
                     <connections>
-                        <outlet property="activityIndicator" destination="VMj-81-XlH" id="Cix-xI-zHD"/>
                         <outlet property="albumArtImageView" destination="z3e-Bf-d3c" id="6Vp-F9-nX8"/>
                         <outlet property="albumNameLabel" destination="fcK-tH-yJg" id="9jU-Sb-HeX"/>
                         <outlet property="currenTimeLabel" destination="9je-y6-dEL" id="yzG-Ay-RTy"/>
                         <outlet property="durationLabel" destination="A5b-iw-E9q" id="h9R-nz-Zln"/>
-                        <outlet property="durationSlider" destination="fXE-qy-tJz" id="Sxr-Hn-xm7"/>
+                        <outlet property="durationSlider" destination="CLw-WC-VuW" id="u3Z-eW-n6u"/>
                         <outlet property="fullPlayerPlayPauseButton" destination="AXK-Bk-2A9" id="p7Q-Y2-tDn"/>
                         <outlet property="songNameLabel" destination="SxT-Nz-7Dk" id="s2w-EV-1Wk"/>
+                        <outlet property="volumeSlider" destination="CJh-Ds-8Nu" id="VZ5-Pt-gVM"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
@@ -286,21 +286,51 @@
                         <rect key="frame" x="0.0" y="44" width="414" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
+                    <connections>
+                        <segue destination="sjI-NT-eTw" kind="relationship" relationship="rootViewController" id="QC5-wq-rpn"/>
+                    </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="3a7-5b-EED" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-351" y="242"/>
         </scene>
-        <!--View Controller-->
+        <!--Track List TableVC-->
         <scene sceneID="KAP-HG-KZn">
             <objects>
-                <viewController id="sjI-NT-eTw" sceneMemberID="viewController">
+                <viewController id="sjI-NT-eTw" customClass="TrackListTableVC" customModule="AudioPlayer" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="zLo-GC-rz6">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="BN1-pE-pBC">
+                                <rect key="frame" x="0.0" y="813" width="414" height="49"/>
+                                <items>
+                                    <barButtonItem title="Моя музыка" id="Zam-c1-9zU"/>
+                                    <barButtonItem style="plain" systemItem="flexibleSpace" id="7bu-Hv-Uf9"/>
+                                    <barButtonItem title="Мои плейлисты" id="C11-3q-ddA"/>
+                                    <barButtonItem style="plain" systemItem="flexibleSpace" id="CK6-CV-VaD"/>
+                                    <barButtonItem title="Добавить" id="Kea-uh-fKh"/>
+                                </items>
+                                <toolbarAppearance key="standardAppearance"/>
+                            </toolbar>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="Kvm-8i-Hd8">
+                                <rect key="frame" x="0.0" y="88" width="414" height="725"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                            </tableView>
+                        </subviews>
                         <viewLayoutGuide key="safeArea" id="vZj-Ad-jT5"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="vZj-Ad-jT5" firstAttribute="trailing" secondItem="Kvm-8i-Hd8" secondAttribute="trailing" id="5ky-FB-Qv4"/>
+                            <constraint firstItem="Kvm-8i-Hd8" firstAttribute="top" secondItem="vZj-Ad-jT5" secondAttribute="top" id="6J1-Of-F95"/>
+                            <constraint firstItem="BN1-pE-pBC" firstAttribute="centerX" secondItem="zLo-GC-rz6" secondAttribute="centerX" id="F5X-OJ-7nK"/>
+                            <constraint firstItem="BN1-pE-pBC" firstAttribute="leading" secondItem="vZj-Ad-jT5" secondAttribute="leading" id="HOb-EV-3Wn"/>
+                            <constraint firstItem="BN1-pE-pBC" firstAttribute="bottom" secondItem="vZj-Ad-jT5" secondAttribute="bottom" id="RZg-iV-uUz"/>
+                            <constraint firstItem="BN1-pE-pBC" firstAttribute="top" secondItem="Kvm-8i-Hd8" secondAttribute="bottom" id="UAj-lo-ewT"/>
+                            <constraint firstItem="Kvm-8i-Hd8" firstAttribute="leading" secondItem="vZj-Ad-jT5" secondAttribute="leading" id="YYc-sA-jTF"/>
+                        </constraints>
                     </view>
+                    <navigationItem key="navigationItem" id="xue-Df-FCY"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="wwx-Fk-2Pl" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -313,6 +343,7 @@
         <image name="MPPrev" width="44" height="44"/>
         <image name="heart.fill" catalog="system" width="128" height="109"/>
         <image name="heart.slash.fill" catalog="system" width="128" height="115"/>
+        <image name="pic" width="251" height="201"/>
         <image name="volume_max_black" width="17" height="14"/>
         <image name="volume_min_black" width="7" height="9.6666669845581055"/>
         <systemColor name="systemBackgroundColor">

@@ -9,6 +9,7 @@ import Foundation
 import AVFoundation
 import UIKit
 
+
 class PlayerViewController: UIViewController {
     
     //MARK: IBOutlets
@@ -19,9 +20,11 @@ class PlayerViewController: UIViewController {
     @IBOutlet weak var durationSlider: UISlider!
     @IBOutlet weak var albumArtImageView: UIImageView!
     @IBOutlet weak var fullPlayerPlayPauseButton: UIButton!
-    @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
+    @IBOutlet weak var volumeSlider: UISlider!
+
     
     var player: AVAudioPlayer?
+    var trackDurationSeconds = 0
     var currentTrack = "song1"
 
     
@@ -29,14 +32,15 @@ class PlayerViewController: UIViewController {
         super.viewDidLoad()
         setupUI()
         loadTrack(withName: "song1")
+        //durationSlider.maximumValue = Float(player.duration.second)
     }
     
     func setupUI() {
         //updateCurrentTrackInfo()
         albumArtImageView.layer.cornerRadius = 5
         albumArtImageView.clipsToBounds = true
-                
-        //AudioPlayer.defaultPlayer.delegate = self
+        durationSlider.setThumbImage(UIImage(named: "circle"), for: UIControl.State())
+      
     }
     
 
@@ -44,17 +48,23 @@ class PlayerViewController: UIViewController {
     
     @IBAction func didTapPlayPauseButton(_ sender: Any) {
         player?.play()
+        updatePlayButton()
     }
     @IBAction func tapNextSong(_ sender: Any) {
         loadTrack(withName: getNextTrack())
         player?.play()
         
     }
-    
     @IBAction func tapPreviousSong(_ sender: Any) {
         loadTrack(withName: getPreviousTrack())
         player?.play()
         
+    }
+    @IBAction func volumeSliderAction(_ sender: Any) {
+        self.player?.volume = self.volumeSlider.value
+    }
+    @IBAction func durationSliderAction(_ sender: UISlider) {
+        self.player?.currentTime = TimeInterval(sender.value)
     }
     
     private func loadTrack(withName name: String) {
@@ -63,7 +73,8 @@ class PlayerViewController: UIViewController {
 
         do {
             player = try AVAudioPlayer(contentsOf: url)
-            player?.play()
+            durationSlider.maximumValue = Float(player?.duration ?? 0)
+           
         } catch {
             print("couldn't load file :(")
     }
@@ -94,5 +105,31 @@ class PlayerViewController: UIViewController {
         }
         return currentTrack
     }
-
+    
+    func setPlayButtonIconToPause() {
+        fullPlayerPlayPauseButton.setImage(UIImage(named:"MPPause"), for: UIControl.State())
+    }
+    func setPlayButtonIconToPlay() {
+        fullPlayerPlayPauseButton.setImage(UIImage(named: "MPPlay"), for: UIControl.State())
+    }
+    
+    func updatePlayButton() {
+        if fullPlayerPlayPauseButton.imageView?.image == UIImage(named: "MPPlay") {
+            fullPlayerPlayPauseButton.setImage(UIImage(named: "MPPause"), for: UIControl.State())
+            playSong()
+        } else {
+            fullPlayerPlayPauseButton.setImage(UIImage(named: "MPPlay"), for: UIControl.State())
+            pauseSong()
+        }
+    }
+    
+    @objc func pauseSong() {
+        player?.pause()
+        setPlayButtonIconToPlay()
+    }
+    
+    @objc func playSong() {
+        player?.play()
+        setPlayButtonIconToPause()
+    }
 }
