@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="20037" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="20037" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="EgA-fw-Lt9">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="20020"/>
@@ -17,7 +17,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="VC7-Sa-Oya">
-                                <rect key="frame" x="0.0" y="44" width="414" height="726"/>
+                                <rect key="frame" x="0.0" y="44" width="414" height="818"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="UDJ-cd-SqH">
                                         <rect key="frame" x="0.0" y="0.0" width="414" height="320"/>
@@ -243,6 +243,10 @@
                                             <constraint firstItem="CJh-Ds-8Nu" firstAttribute="leading" secondItem="rpq-Mu-lmR" secondAttribute="leading" constant="20" id="wWj-di-sQK"/>
                                         </constraints>
                                     </view>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="X5T-1T-RTt">
+                                        <rect key="frame" x="0.0" y="726" width="414" height="92"/>
+                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                    </view>
                                 </subviews>
                                 <constraints>
                                     <constraint firstItem="SMz-sw-46n" firstAttribute="leading" secondItem="VC7-Sa-Oya" secondAttribute="leading" id="8kk-hr-mL9"/>
@@ -294,7 +298,7 @@
             </objects>
             <point key="canvasLocation" x="-351" y="242"/>
         </scene>
-        <!--Track List TableVC-->
+        <!--My music-->
         <scene sceneID="KAP-HG-KZn">
             <objects>
                 <viewController id="sjI-NT-eTw" customClass="TrackListTableVC" customModule="AudioPlayer" customModuleProvider="target" sceneMemberID="viewController">
@@ -316,6 +320,36 @@
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="Kvm-8i-Hd8">
                                 <rect key="frame" x="0.0" y="88" width="414" height="725"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="cell" id="8oj-pE-VbG" userLabel="cell">
+                                        <rect key="frame" x="0.0" y="44.5" width="414" height="43.5"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="8oj-pE-VbG" id="hEn-51-QMn">
+                                            <rect key="frame" x="0.0" y="0.0" width="414" height="43.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Subtitle" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TrD-W5-SwA">
+                                                    <rect key="frame" x="20" y="22" width="59" height="21"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FYa-Hb-CM2">
+                                                    <rect key="frame" x="20" y="0.0" width="33" height="21"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="FYa-Hb-CM2" firstAttribute="leading" secondItem="TrD-W5-SwA" secondAttribute="leading" id="KUa-NC-wgN"/>
+                                                <constraint firstItem="FYa-Hb-CM2" firstAttribute="leading" secondItem="hEn-51-QMn" secondAttribute="leadingMargin" id="eIp-qb-3df"/>
+                                                <constraint firstItem="TrD-W5-SwA" firstAttribute="top" secondItem="FYa-Hb-CM2" secondAttribute="bottom" constant="1" id="hG0-Iw-2SX"/>
+                                                <constraint firstItem="FYa-Hb-CM2" firstAttribute="top" secondItem="hEn-51-QMn" secondAttribute="topMargin" constant="-11" id="qsG-TE-xJ3"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </prototypes>
                             </tableView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="vZj-Ad-jT5"/>
@@ -330,11 +364,14 @@
                             <constraint firstItem="Kvm-8i-Hd8" firstAttribute="leading" secondItem="vZj-Ad-jT5" secondAttribute="leading" id="YYc-sA-jTF"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" id="xue-Df-FCY"/>
+                    <navigationItem key="navigationItem" title="My music" id="xue-Df-FCY"/>
+                    <connections>
+                        <outlet property="table" destination="Kvm-8i-Hd8" id="SdV-Xr-e7x"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="wwx-Fk-2Pl" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="501" y="242"/>
+            <point key="canvasLocation" x="500.00000000000006" y="241.74107142857142"/>
         </scene>
     </scenes>
     <resources>

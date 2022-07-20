@@ -9,7 +9,6 @@ import Foundation
 import AVFoundation
 import UIKit
 
-
 class PlayerViewController: UIViewController {
     
     //MARK: IBOutlets
@@ -22,93 +21,91 @@ class PlayerViewController: UIViewController {
     @IBOutlet weak var fullPlayerPlayPauseButton: UIButton!
     @IBOutlet weak var volumeSlider: UISlider!
 
-    
+    //MARK: Properties
     var player: AVAudioPlayer?
-    var trackDurationSeconds = 0
-    var currentTrack = "song1"
+    var position: Int = 0
+    var songs: [Song] = []
 
-    
+    //MARK:  Override methods
     override func viewDidLoad() {
         super.viewDidLoad()
         setupUI()
-        loadTrack(withName: "song1")
-        //durationSlider.maximumValue = Float(player.duration.second)
+        loadTrack()
+        durationSlider.maximumValue = Float(player?.duration ?? 0)
+        durationTime()
+        var timer = Timer.scheduledTimer(timeInterval: 0.1, target: self, selector: #selector(updateSlider), userInfo: nil, repeats: true)
+        var timerAudio = Timer.scheduledTimer(timeInterval: 0.1, target: self, selector: #selector(updateAudioTime), userInfo: nil, repeats: true)
     }
     
-    func setupUI() {
-        //updateCurrentTrackInfo()
-        albumArtImageView.layer.cornerRadius = 5
-        albumArtImageView.clipsToBounds = true
-        durationSlider.setThumbImage(UIImage(named: "circle"), for: UIControl.State())
-      
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        if let player = player {
+            player.stop()
+        }
     }
-    
 
     //MARK: IBActions
-    
     @IBAction func didTapPlayPauseButton(_ sender: Any) {
         player?.play()
         updatePlayButton()
     }
+    
     @IBAction func tapNextSong(_ sender: Any) {
-        loadTrack(withName: getNextTrack())
-        player?.play()
-        
+        if position < (songs.count - 1) {
+            position = position + 1
+            player?.stop()
+            }
+        loadTrack()
     }
+    
     @IBAction func tapPreviousSong(_ sender: Any) {
-        loadTrack(withName: getPreviousTrack())
-        player?.play()
-        
+        if position > 0 {
+            position = position - 1
+            player?.stop()
+            }
+        loadTrack()
     }
+    
     @IBAction func volumeSliderAction(_ sender: Any) {
         self.player?.volume = self.volumeSlider.value
     }
     @IBAction func durationSliderAction(_ sender: UISlider) {
-        self.player?.currentTime = TimeInterval(sender.value)
+        player?.stop()
+        self.player?.currentTime = TimeInterval(durationSlider.value)
+        player?.prepareToPlay()
+        player?.play()
     }
     
-    private func loadTrack(withName name: String) {
-        let path = Bundle.main.path(forResource: name, ofType:"mp3")!
-        let url = URL(fileURLWithPath: path)
+    //MARK:  Methods
+    func setupUI() {
+        albumArtImageView.layer.cornerRadius = 5
+        albumArtImageView.clipsToBounds = true
+        durationSlider.setThumbImage(UIImage(named: "circle"), for: UIControl.State())
 
-        do {
-            player = try AVAudioPlayer(contentsOf: url)
-            durationSlider.maximumValue = Float(player?.duration ?? 0)
-           
-        } catch {
-            print("couldn't load file :(")
     }
     
-}
-    private func getNextTrack() -> String {
-        switch currentTrack {
-        case "song1":
-            currentTrack = "song2"
-        case "song2":
-            currentTrack = "song3"
-        default:
-            currentTrack =  "song1"
-            
-        }
-        return currentTrack
+    func durationTime() {
+        let duration = Int(((player?.duration ?? 0) - (player?.currentTime ?? 0)))
+        let minutes2 = duration/60
+        let seconds2 = duration - minutes2 * 60
+        durationLabel.text = NSString(format: "%02d:%02d", minutes2,seconds2) as String
+    }
+
+    @objc func updateSlider() {
+        durationSlider.value = Float(player?.currentTime ?? 0)
     }
     
-    private func getPreviousTrack() -> String {
-        switch currentTrack {
-        case "song1":
-            currentTrack =  "song3"
-        case "song3":
-            currentTrack =  "song2"
-        default:
-            currentTrack =  "song1"
-            
-        }
-        return currentTrack
+    @objc func updateAudioTime() {
+        let currentTime1 = Int((player?.currentTime)!)
+        let minutes = currentTime1/60
+        let seconds = currentTime1 - minutes * 60
+        currenTimeLabel.text = NSString(format: "%02d:%02d", minutes,seconds) as String
     }
     
     func setPlayButtonIconToPause() {
         fullPlayerPlayPauseButton.setImage(UIImage(named:"MPPause"), for: UIControl.State())
     }
+    
     func setPlayButtonIconToPlay() {
         fullPlayerPlayPauseButton.setImage(UIImage(named: "MPPlay"), for: UIControl.State())
     }
@@ -132,4 +129,41 @@ class PlayerViewController: UIViewController {
         player?.play()
         setPlayButtonIconToPause()
     }
+    
+    //MARK:  Private methods
+    private func loadTrack() {
+        let song = songs[position]
+        let urlString = Bundle.main.path(forResource: song.trackName, ofType:"mp3")
+    
+        do {
+            try AVAudioSession.sharedInstance().setCategory(
+                AVAudioSession.Category.ambient
+            )
+
+            guard let urlString = urlString  else {
+                print("urlstring is nil")
+                return
+            }
+
+            player = try AVAudioPlayer(contentsOf: URL(string: urlString)!)
+
+            guard let player = player else {
+                print("player is nil")
+                return
+            }
+            player.volume = 0.5
+
+            player.play()
+        }
+        catch {
+            print("error occurred")
+        }
+        songNameLabel.text = song.name
+        albumNameLabel.text = song.artistName
+        albumArtImageView.image = UIImage(named: song.imageName)
+}
+   
+    
+    
+
 }
